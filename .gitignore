@@ -1,4 +1,5 @@
 app.*
+sqlite_ext/
 
 
 # Logs
