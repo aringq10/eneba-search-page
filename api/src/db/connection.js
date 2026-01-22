@@ -19,7 +19,7 @@ export function openDb(dbFile = "app.db") {
     const db = new Database(dbFile);
 
     db.pragma('journal_mode = WAL');
-    db.loadExtension('./spellfix.so')
+    db.loadExtension('./sqlite_ext/spellfix.so')
 
     try {
         db.transaction(() => {
