@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS games (
+  id INTEGER PRIMARY KEY,
+  title TEXT NOT NULL,
+  other_data TEXT
+);
