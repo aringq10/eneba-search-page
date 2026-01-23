@@ -24,11 +24,27 @@ export function openDb(dbFile = "app.db") {
     try {
         db.transaction(() => {
             execSqlFile(db, path.resolve(schemaPath));
-            const insert = db.prepare("INSERT INTO games (title, other_data) VALUES (?, ?)");
+            const insert = db.prepare(`
+              INSERT INTO games
+              (title, platform, region, price, discount, dprice, cashback, favcount, cover)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+            );
 
             const count = db.prepare("SELECT COUNT(*) AS n FROM games").get().n;
             if (count === 0) {
-                for (const i of seedArray) insert.run(i.title, i.other_data ?? null);
+                for (const i of seedArray) {
+                  insert.run(
+                    i.title,
+                    i.platform,
+                    i.region,
+                    i.price,
+                    i.discount,
+                    i.dprice,
+                    i.cashback,
+                    i.favcount,
+                    i.cover
+                  );
+                }
             }
 
             for (const p of otherPaths) {
