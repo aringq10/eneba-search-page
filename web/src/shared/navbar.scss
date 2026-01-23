@@ -1,0 +1,139 @@
+@import "../app/styles/sassvars.scss";
+
+@mixin hover-supported {
+    @media not all and (pointer: coarse) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
+#navbar {
+    flex: 0 0 var(--navbar-height);
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    padding: 20px var(--content-padding);
+
+    > * {
+        height: 100%;
+    }
+
+    .navbar-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        > svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
+        @include hover-supported() {
+            background-color: var(--hover-color);
+        }
+    .navbar-icon:not(#search-icon, .fill) {
+        @include hover-supported() {
+            > svg path {
+                stroke: var(--icon-hover-color);
+            }
+        }
+
+    }
+    .navbar-icon.fill {
+        @include hover-supported() {
+            > svg {
+                fill: var(--icon-hover-color);
+            }
+        }
+    }
+
+    #navbar-logo {
+        > img {
+            height: 100%;
+        }
+    }
+}
+
+.page-overlay {
+    content: "";
+    position: fixed;
+    inset: 0; 
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+#searchbar {
+    border: 1px solid white;
+    flex: 1 0 0;
+    display: flex;
+    > * {
+        height: 100%;
+        cursor: text;
+    }
+    #searchfield {
+        flex: 1 0 0;
+        background: none;
+        outline: none;
+        border: none;
+        font-size: 1.9rem;
+        font-weight: bold;
+    }
+    #search-icon, #clear-icon {
+        padding: 0 var(--gap);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #search-icon {
+        cursor: text;
+        svg {
+            height: 24px;
+        }
+    }
+    #clear-icon {
+        cursor: pointer;
+        svg {
+            height: 16px;
+        }
+    }
+}
+
+
+@media (max-width: $mobile-breakpoint3) {
+    :root {
+        --navbar-height: 55px;
+    }
+    #navbar {
+        padding: var(--content-padding);
+    }
+    #searchbar:not(.open) {
+        margin-left: auto;
+        flex: 0;
+        border: none;
+        > *:not(#search-icon) {
+            display: none;
+        }
+        #search-icon {
+            cursor: pointer;
+            padding: 0;
+
+            @include hover-supported() {
+                > svg path {
+                    stroke: var(--icon-hover-color);
+                }
+            }
+        }
+    }
+    #searchbar.open {
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        border: none;
+        height: var(--navbar-height);
+        background-color: var(--bg-color);
+        isolation: isolate;
+    }
+}

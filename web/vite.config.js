@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/list': 'http://localhost:9000',
+      '/static': 'http://localhost:9000',
     },
   },
 })

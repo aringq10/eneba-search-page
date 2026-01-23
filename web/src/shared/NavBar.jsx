@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./navbar.scss";
 
 const mobileBreakpoint = "700px";
 

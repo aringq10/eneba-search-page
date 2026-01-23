@@ -86,5 +86,49 @@
         "cashback": 1.72,
         "favcount": 1145,
         "cover": "rdr2-ue.jpg"
+    },
+    {
+        "title": "EA SPORTS™ FIFA 23 Standard Edition Xbox Series X|S Key GLOBAL",
+        "platform": "xb",
+        "region": "gl",
+        "price": 79.99,
+        "discount": 67,
+        "dprice": 26.02,
+        "cashback": 2.86,
+        "favcount": 1832,
+        "cover": "fifa23-xbxs.jpg"
+    },
+    {
+        "title": "EA SPORTS™ FIFA 23 Standard Edition Xbox One Key GLOBAL",
+        "platform": "xb",
+        "region": "gl",
+        "price": 69.99,
+        "discount": 69,
+        "dprice": 21.87,
+        "cashback": 2.41,
+        "favcount": 2820,
+        "cover": "fifa23-xbo.jpg"
+    },
+    {
+        "title": "EA SPORTS™ FIFA 23 Standard Edition Xbox Series X|S Key EUROPE",
+        "platform": "xb",
+        "region": "eu",
+        "price": 79.99,
+        "discount": 68,
+        "dprice": 25.63,
+        "cashback": 2.82,
+        "favcount": 1011,
+        "cover": "fifa23-xbxs.jpg"
+    },
+    {
+        "title": "EA SPORTS™ FIFA 23 Ultimate Edition Xbox One & Xbox Series X|S Key EUROPE",
+        "platform": "xb",
+        "region": "eu",
+        "price": 99.99,
+        "discount": 58,
+        "dprice": 42.27,
+        "cashback": 4.65,
+        "favcount": 298,
+        "cover": "fifa23-xbxs-ue.jpg"
     }
 ]

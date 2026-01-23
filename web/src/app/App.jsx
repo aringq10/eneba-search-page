@@ -66,6 +66,7 @@ export default function App() {
         open={open}
         setOpen={setOpen}
       />
+      <hr></hr>
       <ResultList
         items={items}
         loading={loading}
