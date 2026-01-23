@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import NavBar from './NavBar.jsx'
-import ResultList from "./ResultList.jsx";
+import NavBar from '../shared/NavBar.jsx'
+import ResultList from "../shared/ResultList.jsx";
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -9,6 +9,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [params, setParams] = useSearchParams();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const newQuery = params.get("search") ?? "";
@@ -49,26 +50,27 @@ export default function App() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (open) setOpen(false);
     setParams(query ? { search: query } : {});
   }
 
   return (
-    <>
-      <div id="navbarwrapper">
-        <NavBar
-          query={query}
-          onSubmit={handleSubmit}
-          setQuery={setQuery}
-          loading={loading}
-        />
-      </div>
-      <div id="contentwindow">
-        <ResultList
-          items={items}
-          loading={loading}
-          error={error}
-        />
-      </div>
-    </>
+    <div
+      id="page"
+      className={open ? "no-scroll" : ""}
+    >
+      <NavBar
+        query={query}
+        onSubmit={handleSubmit}
+        setQuery={setQuery}
+        open={open}
+        setOpen={setOpen}
+      />
+      <ResultList
+        items={items}
+        loading={loading}
+        error={error}
+      />
+    </div>
   );
 }

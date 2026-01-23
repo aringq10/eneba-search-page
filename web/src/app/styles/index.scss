@@ -1,0 +1,233 @@
+@mixin hover-supported {
+    @media not all and (pointer: coarse) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
+// sass variables
+$mobile-breakpoint3: 700px;
+$mobile-breakpoint1: 500px;
+
+:root {
+    --navbar-height: 100px;
+    --max-content-width: 1000px;
+    --content-padding: 20px;
+    --gamecard-col-count: 4;
+    --gamecard-mobile-height: 150px;
+    --gamecard-ratio: 1 / 2.16;
+
+    --gap: 15px;
+
+    --icon-hover-color: #f9a53e;
+    --bg-color: #4618ac;
+
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--bg-color);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+#page{
+    &.no-scroll {
+        overflow: hidden;
+    }
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > * {
+        max-width: var(--max-content-width);
+        width: 100%;
+        padding: var(--content-padding);
+    }
+}
+
+#resultcount {
+    padding: 0 var(--content-padding);
+    padding-top: calc(var(--content-padding) * 2);
+}
+
+#resultlist {
+    display: grid;
+    grid-template-columns: repeat(var(--gamecard-col-count), 1fr);
+    gap: var(--gap);
+    > .gamecard {
+        border: 1px solid white;
+        aspect-ratio: var(--gamecard-ratio);
+    }
+}
+
+#navbar {
+    flex: 0 0 var(--navbar-height);
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    > * {
+        height: 100%;
+    }
+
+    .navbar-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        > svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
+        @include hover-supported() {
+            background-color: var(--hover-color);
+        }
+    .navbar-icon:not(#search-icon, .fill) {
+        @include hover-supported() {
+            > svg path {
+                stroke: var(--icon-hover-color);
+            }
+        }
+
+    }
+    .navbar-icon.fill {
+        @include hover-supported() {
+            > svg {
+                fill: var(--icon-hover-color);
+            }
+        }
+    }
+
+    #navbar-logo {
+        > img {
+            height: 100%;
+        }
+    }
+}
+
+.page-overlay {
+    content: "";
+    position: fixed;
+    inset: 0; 
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+#searchbar {
+    border: 1px solid white;
+    flex: 1 0 0;
+    display: flex;
+    > * {
+        height: 100%;
+        cursor: text;
+    }
+    #searchfield {
+        flex: 1 0 0;
+        background: none;
+        outline: none;
+        border: none;
+        font-size: 100%;
+        font-weight: bold;
+    }
+    #search-icon, #clear-icon {
+        padding: 0 var(--gap);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #search-icon {
+        cursor: text;
+        svg {
+            height: 24px;
+        }
+    }
+    #clear-icon {
+        cursor: pointer;
+        svg {
+            height: 16px;
+        }
+    }
+}
+
+@media (max-width: $mobile-breakpoint3) {
+    :root {
+        --gamecard-col-count: 3;
+        --navbar-height: 55px;
+        --content-padding: 10px;
+    }
+    #navbar {
+        padding: var(--content-padding);
+    }
+}
+
+
+@media (max-width: $mobile-breakpoint3) {
+    #searchbar:not(.open) {
+        margin-left: auto;
+        flex: 0;
+        border: none;
+        > *:not(#search-icon) {
+            display: none;
+        }
+        #search-icon {
+            cursor: pointer;
+            padding: 0;
+
+            @include hover-supported() {
+                > svg path {
+                    stroke: var(--icon-hover-color);
+                }
+            }
+        }
+    }
+    #searchbar.open {
+        z-index: 1000;
+        position: fixed;
+        left: var(--content-padding);
+        right: var(--content-padding);
+        top: var(--content-padding);
+        height: var(--navbar-height);
+        background-color: var(--bg-color);
+        isolation: isolate;
+    }
+}
+
+@media (max-width: $mobile-breakpoint1) {
+    :root {
+        --gamecard-col-count: 1;
+    }
+    #resultlist {
+        > .gamecard {
+            height: var(--gamecard-mobile-height);
+            width: 100%;
+        }
+    }
+}

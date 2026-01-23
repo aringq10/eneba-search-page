@@ -10,7 +10,7 @@ export default function ResultList({ items = [], loading, error }) {
   return (
     <>
       <div id="resultcount">
-        {`Games Found: ${items.length}`}
+        {!loading ? <>Results found: <b>{items.length}</b></> : "" }
       </div>
       <div id="resultlist">
         { error ? error : ""}
