@@ -1,0 +1,117 @@
+// sass variables
+    $mobile-breakpoint3: 800px;
+    $mobile-breakpoint1: 500px;
+
+:root {
+    --navbar-height: 75px;
+    --max-content-width: 800px;
+    --gamecard-height: 150px;
+    --gamecard-col-count: 4;
+    --gamecard-mobile-height: 100px;
+    --gamecard-mobile-width: 250px;
+
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#root{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#navbarwrapper {
+    height: var(--navbar-height);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    #navbar {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+#contentwindow {
+    overflow-y: auto;
+    height: calc(100% - var(--navbar-height));
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #resultcount {
+        width: 100%;
+        padding: 5px;
+    }
+    > * {
+        max-width: var(--max-content-width);
+    }
+}
+
+#resultlist {
+    --gap: 5px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--gamecard-col-count), 1fr);
+    gap: var(--gap);
+    > .gamecard {
+        border: 1px solid white;
+        aspect-ratio: 1 / 1.75;
+    }
+}
+
+#navbar {
+    max-width: var(--max-content-width);
+    #searchbar {
+        display: flex;
+        #searchbtn {
+            width: var(--navbar-height);
+            height: var(--navbar-height);
+        }
+        #searchfield {
+            height: var(--navbar-height);
+            flex: 1 0 0;
+        }
+    }
+}
+
+@media (max-width: $mobile-breakpoint3) {
+    :root {
+        // --content-width: calc(var(--initial-content-width) / 4 * 3);
+        --gamecard-col-count: 3;
+    }
+}
+
+@media (max-width: $mobile-breakpoint1) {
+    :root {
+        --gamecard-col-count: 1;
+    }
+    #resultlist {
+        > .gamecard {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+        }
+    }
+}

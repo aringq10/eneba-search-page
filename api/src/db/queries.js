@@ -56,7 +56,6 @@ export function makeQueries(db) {
     if (!query.trim()) return [];
 
     const correctedString = correctQuery(query);
-    console.log(`${query}->${correctedString}`);
 
     return ftsSearch(correctedString);
   }

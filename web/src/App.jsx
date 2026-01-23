@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import NavBar from './NavBar.jsx'
 import ResultList from "./ResultList.jsx";
 
@@ -7,17 +8,23 @@ export default function App() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [params, setParams] = useSearchParams();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  useEffect(() => {
+    const newQuery = params.get("search") ?? "";
+    setQuery(newQuery);
+    queryGame(newQuery);
+  }, [params]);
 
+  async function queryGame(query) {
     const q = query.trim();
 
     setLoading(true);
     setError("");
 
     try {
-      const url = `/list?search=${encodeURIComponent(q)}`;
+      const url = q ? `/api/list?search=${encodeURIComponent(q)}` : "/api/list";
+
       const res = await fetch(url, { method: "GET" });
 
       if (!res.ok) {
@@ -26,9 +33,7 @@ export default function App() {
 
       const data = await res.json();
 
-      // Expected: data is an array. If your API returns {results:[...]} adjust here.
       if (!Array.isArray(data.rows)) {
-        console.log(data.rows);
         throw new Error("Unexpected response format (expected JSON array).");
       }
 
@@ -39,20 +44,31 @@ export default function App() {
     } finally {
       setLoading(false);
     }
+
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setParams(query ? { search: query } : {});
   }
 
   return (
-    <div id="page">
-      <NavBar
-        query={query}
-        onSubmit={handleSubmit}
-        setQuery={setQuery}
-        loading={loading}
-      />
-      <ResultList
-        items={items}
-        loading={loading}
-      />
-    </div>
+    <>
+      <div id="navbarwrapper">
+        <NavBar
+          query={query}
+          onSubmit={handleSubmit}
+          setQuery={setQuery}
+          loading={loading}
+        />
+      </div>
+      <div id="contentwindow">
+        <ResultList
+          items={items}
+          loading={loading}
+          error={error}
+        />
+      </div>
+    </>
   );
 }

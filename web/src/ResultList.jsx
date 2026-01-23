@@ -1,17 +1,25 @@
-export default function ResultList({ items = [], loading }) {
+export default function ResultList({ items = [], loading, error }) {
   const listItems = items.map(i =>
-    <li key={i.id}>
-      {i.title}
-    </li>
+    <div key={i.id} className="gamecard">
+      <div className="gametitle">{i.title}</div>
+      <div className="gameprice">{i.price}</div>
+      <div className="gameplatform">{i.platform}</div>
+    </div>
   );
 
   return (
-    <div id="resultlist">
-      {loading ? (
-        <div>Loading...</div>
-      ) :
-        listItems
-      }
-    </div>
+    <>
+      <div id="resultcount">
+        {`Games Found: ${items.length}`}
+      </div>
+      <div id="resultlist">
+        { error ? error : ""}
+        {loading ? (
+          <div>Loading...</div>
+        ) :
+          listItems
+        }
+      </div>
+    </>
   );
 }
