@@ -1,11 +1,10 @@
 @import "../app/styles/sassvars.scss";
 
-@mixin hover-supported {
-    @media not all and (pointer: coarse) {
-        &:hover {
-            @content;
-        }
-    }
+:root {
+    --icon-hover-color: #f9a53e;
+    --navbar-height: 100px;
+    --navbar-height3: 55px;
+    --searchfield-font: 1.9rem;
 }
 
 #navbar {
@@ -14,37 +13,20 @@
     align-items: center;
     gap: var(--gap);
     padding: 20px var(--content-padding);
+    height: var(--navbar-height);
 
     > * {
         height: 100%;
     }
 
     .navbar-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         cursor: pointer;
-        > svg {
-            height: 24px;
-            width: 24px;
-        }
+        height: 24px;
+        width: 24px;
     }
+    .navbar-icon {
         @include hover-supported() {
-            background-color: var(--hover-color);
-        }
-    .navbar-icon:not(#search-icon, .fill) {
-        @include hover-supported() {
-            > svg path {
-                stroke: var(--icon-hover-color);
-            }
-        }
-
-    }
-    .navbar-icon.fill {
-        @include hover-supported() {
-            > svg {
-                fill: var(--icon-hover-color);
-            }
+            color: var(--icon-hover-color);
         }
     }
 
@@ -76,25 +58,28 @@
         background: none;
         outline: none;
         border: none;
-        font-size: 1.9rem;
+        color: white;
+        font-size: var(--searchfield-font);
         font-weight: bold;
-    }
-    #search-icon, #clear-icon {
-        padding: 0 var(--gap);
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     #search-icon {
         cursor: text;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--content-padding);
         svg {
             height: 24px;
+            color: white;
         }
     }
     #clear-icon {
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--content-padding);
         svg {
             height: 16px;
+            color: white;
         }
     }
 }
@@ -102,7 +87,7 @@
 
 @media (max-width: $mobile-breakpoint3) {
     :root {
-        --navbar-height: 55px;
+        --navbar-height: var(--navbar-height3);
     }
     #navbar {
         padding: var(--content-padding);
@@ -134,6 +119,5 @@
         border: none;
         height: var(--navbar-height);
         background-color: var(--bg-color);
-        isolation: isolate;
     }
 }

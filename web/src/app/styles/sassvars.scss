@@ -1,3 +1,11 @@
 
 $mobile-breakpoint3: 768px;
-$mobile-breakpoint1: 500px;
+$mobile-breakpoint1: 600px;
+
+@mixin hover-supported {
+    @media not all and (pointer: coarse) {
+        &:hover {
+            @content;
+        }
+    }
+}

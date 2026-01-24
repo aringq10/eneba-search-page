@@ -26,7 +26,8 @@ export function openDb(dbFile = "app.db") {
             execSqlFile(db, path.resolve(schemaPath));
             const insert = db.prepare(`
               INSERT INTO games
-              (title, platform, region, price, discount, dprice, cashback, favcount, cover)
+              (title, platform, region, price, discount,
+              dprice, cashback, favcount, cover)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
             );
 

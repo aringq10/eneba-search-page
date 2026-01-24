@@ -1,12 +1,19 @@
 import { ftsAnyWord, tokenize } from "../utils/text.js";
 
+const scoreThreshold = 200;
+const spellFixScope = 2;
+
 export function makeQueries(db) {
-  const listStmt = db.prepare(`SELECT * FROM games ORDER BY id DESC LIMIT 50`);
+  const listStmt = db.prepare(`
+    SELECT * FROM games
+    ORDER BY id DESC
+    LIMIT 50
+  `);
   const spellSuggestStmt = db.prepare(`
     SELECT word, score
     FROM title_spell
     WHERE word MATCH ?
-    AND scope = 1
+    AND scope = ${spellFixScope}
     ORDER BY score
     LIMIT 1
   `);
@@ -44,8 +51,11 @@ export function makeQueries(db) {
       }
 
       const corrected = String(suggestion.word);
+      const score = suggestion.score;
 
-      const tooDifferent = Math.abs(corrected.length - t.length) >= 4;
+      const tooDifferent =
+        (Math.abs(corrected.length - t.length) >= 4) ||
+        score > scoreThreshold;
       correctedTokens.push(tooDifferent ? t : corrected);
     }
 

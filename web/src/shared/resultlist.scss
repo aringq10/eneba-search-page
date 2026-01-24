@@ -1,18 +1,8 @@
 @import "../app/styles/sassvars.scss";
 
 :root {
-    --gamecard-border: 1px solid #63e3c2;
     --gamecard-col-count: 4;
-    --gamecard-mobile-height: 175px;
-    --gamecard-ratio: 1 / 2.16;
-    --gamecard-padding: 15px;
-
-    --theme-green: #84e916;
-    --theme-gray: #b3aac9;
-}
-
-.green {
-    color: var(--theme-green);
+    --gap: var(--content-padding);
 }
 
 #resultcount {
@@ -24,120 +14,7 @@
     padding: 0 var(--content-padding);
     grid-template-columns: repeat(var(--gamecard-col-count), 1fr);
     gap: var(--gap);
-    font-size: 1.4rem;
 }
-
-.gamecard {
-    &.cashback {
-        border: var(--gamecard-border);
-    }
-    font-family: "metropolis",Arial,Helvetica,sans-serif;
-    line-height: 1.5;
-    aspect-ratio: var(--gamecard-ratio);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background-color: var(--bg-color-darker);
-    .cover {
-        width: 100%;
-        flex: 1 0 0;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-        }
-
-    }
-    .details {
-        padding: var(--gamecard-padding);
-        width: 100%;
-        flex: 0 0 35%;
-        // font-size: 10px;
-        position: relative;
-        p {
-            padding: 0;
-            margin: 0;
-        }
-        .platform {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: -22px;
-            height: 22px;
-            background-color: rgba(0,0,0,.55);
-            backdrop-filter: blur(5px);
-            font-size: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            padding: 0 5px;
-            img {
-                width: 1.6rem;
-            }
-            .text {
-                line-height: 1;
-                padding: 0;
-                margin: 0;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 1;
-                line-clamp: 1;
-                overflow: hidden;
-            }
-        }
-
-        .title {
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            overflow: hidden;
-        }
-        .region {
-            margin-bottom: 10px;
-        }
-        .price {
-            color: var(--theme-gray);
-        }
-        .dprice {
-            margin-top: 5px;
-            font-size: 2.2rem;
-        }
-        .region, .price, .dprice {
-            line-height: 1;
-        }
-        .favcount {
-            color: var(--theme-gray);
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 2.5px;
-            img {
-                width: 1.2rem;
-            }
-        }
-
-        .title, .region, .favcount, .price, .cashback {
-            font-size: 1.2rem;
-        }
-        .title, .region, .platform, .price, .dprice, .cashback {
-            font-weight: 800;
-        }
-        .favcount {
-            font-weight: 600;
-        }
-
-    }
-}
-
 
 @media (max-width: $mobile-breakpoint3) {
     :root {
@@ -148,29 +25,5 @@
 @media (max-width: $mobile-breakpoint1) {
     :root {
         --gamecard-col-count: 1;
-    }
-    #resultlist {
-        > .gamecard {
-            height: var(--gamecard-mobile-height);
-            width: 100%;
-        }
-    }
-    .gamecard {
-        flex-direction: row;
-        .cover {
-            height: 100%;
-            flex: 0 0 100px;
-            padding: var(--gamecard-padding);
-            padding-right: 0;
-        }
-        .details {
-            flex: 1 0 0;
-            .platform {
-                right: 100%;
-                left: calc(-100px + var(--gamecard-padding));
-                top: auto;
-                bottom: var(--gamecard-padding);
-            }
-        }
     }
 }

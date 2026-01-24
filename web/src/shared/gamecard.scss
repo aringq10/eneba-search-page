@@ -1,0 +1,373 @@
+@import "../app/styles/sassvars.scss";
+
+:root {
+    --cashback-color: #63e3c2;
+    --gamecard-border: 1px solid var(--cashback-color);
+    --gamecard-ratio: 1 / 2.16;
+    --gamecard-padding: 15px;
+    
+    // details
+    --details-height: 176px;
+    --buttons-height: 95px;
+    --details-base-font: 10px;
+    --platform-font: 1em;
+    --platform-height: 22px;
+    --title-region-height: 66px;
+    --title-font: 1.2em;
+    --region-font: 1.2em;
+    --price-font: 1.2em;
+    --dprice-font: 2.2em;
+    --cashback-font: 1.2em;
+    --favcount-font: 1.2em;
+
+    --theme-green: #84e916;
+    --theme-gray: #b3aac9;
+    --theme-red: #e76b8d;
+    --theme-cyan: #4cdfb9;
+}
+
+.lineclamp2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+.lineclamp1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
+}
+
+.green {
+    color: var(--theme-green);
+}
+.red {
+    color: var(--theme-red);
+}
+.cyan {
+    color: var(--theme-cyan);
+}
+.gamecard.cashback {
+    border: var(--gamecard-border);
+}
+
+.gamecard {
+    font-family: "metropolis",Arial,Helvetica,sans-serif;
+    line-height: 1.5;
+    aspect-ratio: var(--gamecard-ratio);
+    overflow: hidden;
+    background-color: var(--bg-color-darker);
+    font-size: var(--details-base-font);
+    position: relative;
+}
+
+.gamecard .cover {
+    width: 100%;
+    height: calc(100% - var(--details-height));
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .cover-overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: all 150ms ease-in-out;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+}
+
+.gamecard .detBtnWrapper {
+    width: 100%;
+    height: calc(var(--details-height) + var(--buttons-height));
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color-darker);
+}
+
+.gamecard .details {
+    padding: var(--gamecard-padding);
+    width: 100%;
+    flex: 0 0 var(--details-height);
+    position: relative;
+    .platform {
+        font-size: var(--platform-font);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(-1 * var(--platform-height));
+        height: var(--platform-height);
+        background-color: rgba(0,0,0,.55);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        padding: 0 5px;
+        img {
+            width: 1.6rem;
+        }
+    }
+    .title-region-wrapper {
+        min-height: var(--title-region-height);
+    }
+    .title {
+        margin-bottom: 8px;
+        font-size: var(--title-font);
+    }
+    .region {
+        margin-bottom: 10px;
+        font-size: var(--region-font);
+    }
+    .price {
+        color: var(--theme-gray);
+        font-size: var(--price-font);
+    }
+    .dprice {
+        margin-top: 5px;
+        font-size: var(--dprice-font);
+    }
+    .favcount {
+        font-size: var(--favcount-font);
+        color: var(--theme-gray);
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 2.5px;
+        .favIcon {
+            width: var(--favcount-font);
+            color: var(--theme-gray);
+        }
+    }
+
+    .region, .price, .dprice {
+        line-height: 1;
+    }
+    .title, .region, .platform, .price, .dprice, .cashback {
+        font-weight: 800;
+    }
+    .favcount {
+        font-weight: 600;
+    }
+}
+
+.gamecard .buttons {
+    flex: 0 0 var(--buttons-height);
+    padding: var(--gamecard-padding);
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    > * {
+        cursor: pointer;
+    }
+    .cartbtn {
+        height: 35px;
+        color: black;
+        font-weight: 800;
+        font-size: 1.5em;
+        background-color: #fad318;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 150ms ease-in-out,border-color 150ms ease-in-out;
+        &:hover {
+            background-color: #f0a613;
+        }
+        .cartIcon {
+            height: 1.6em;
+            color: white;
+        }
+        .plusIcon {
+            width: 1.2em;
+            color: white;
+        }
+
+    }
+    .optbtn {
+        height: 35px;
+        color: white;
+        font-weight: 800;
+        font-size: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid white;
+        transition: background-color 150ms ease-in-out,border-color 150ms ease-in-out;
+        &:hover {
+            background-color: rgba(0,0,0,.3);
+            border-color: #fad318;
+        }
+    }
+
+}
+
+.gamecard .favbtn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 150ms ease-in-out;
+    * {
+        transition: all 150ms ease-in-out;
+    }
+    &:hover {
+        .ribbonIcon .ribbon-fill {
+            fill: rgba(0, 0, 0, 0.2);
+        }
+        .ribbonIcon .ribbon-stroke {
+            fill: rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    .ribbonIcon {
+        width: 4.8em;
+        .heart-stroke {
+            fill: white;
+        }
+        .heart-fill {
+            fill: none;
+        }
+        .ribbon-fill {
+            fill: rgba(0, 0, 0, 0.1);
+        }
+        .ribbon-stroke {
+            fill: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+.details .cashbackRibbon {
+    position: absolute;
+    background-color: var(--cashback-color);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    font-weight: 800;
+    color: black;
+    font-size: 1.2em;
+    .cashbackIcon {
+        height: 1.2em;
+        color: black;
+    }
+}
+
+// Desktop only
+@media (min-width: $mobile-breakpoint1) {
+    .detBtnWrapper {
+        position: absolute;
+        transition: transform 300ms ease-in-out;
+    }
+    .details .cashbackRibbon {
+        left: 0;
+        bottom: calc(100% + var(--platform-height) + 10px);
+    }
+    .gamecard:hover {
+        .detBtnWrapper {
+            transform: translateY(calc(-1 * var(--buttons-height)));
+        }
+        .cover-overlay {
+            opacity: 1;
+        }
+        .favbtn {
+            opacity: 1;
+            &:hover {
+                .ribbonIcon .ribbon-fill {
+                    fill: rgba(0, 0, 0, 0.4);
+                }
+            }
+        }
+    }
+}
+
+// Mobile only
+@media (max-width: $mobile-breakpoint1) {
+    :root {
+        --gamecard-padding: 8px;
+        --title-region-height: 81px;
+    }
+    .gamecard {
+        height: var(--details-height);
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+    .gamecard .cover {
+        height: 100%;
+        flex: 0 0 100px;
+        padding: var(--gamecard-padding);
+        padding-right: 0;
+    }
+    .gamecard .detBtnWrapper {
+        height: 100%;
+        flex: 1 0 0;
+        display: flex;
+        flex-direction: row;
+    }
+    .gamecard .details {
+        flex: 1 0 0;
+        padding-right: 0;
+        .platform {
+            right: 100%;
+            left: calc(-100px + var(--gamecard-padding));
+            top: auto;
+            bottom: var(--gamecard-padding);
+        }
+    }
+    .details .cashbackRibbon {
+        right: -58px;
+        top: 55px;
+    }
+    .gamecard .buttons {
+        flex: 0 0 calc(50px + var(--gamecard-padding));
+        padding: var(--gamecard-padding);
+        padding-left: 0;
+        display: flex;
+        justify-content: end;
+        .optbtn {
+            display: none;
+        }
+        .cartbtn {
+            background: none;
+            width: 100%;
+            height: 38px;
+            padding: 10px;
+            border: 1px solid white;
+            align-self: flex-end;
+            font-size: 1em;
+            
+            transition: all 150ms ease-in-out;
+            &:hover {
+                background-color: rgba(0,0,0,.3);
+                border-color: #fad318;
+            }
+
+        }
+    }
+    .gamecard .favbtn {
+        opacity: 1;
+        right: var(--gamecard-padding);
+        .ribbonIcon {
+            width: 3.36em;
+        }
+        &:hover {
+            .ribbonIcon .ribbon-fill {
+                fill: rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}

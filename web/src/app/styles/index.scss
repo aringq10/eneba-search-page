@@ -1,10 +1,41 @@
 @import "./sassvars.scss";
 
+:root {
+    --max-content-width: 1000px;
+    --content-padding: 20px;
+    --content-padding3: 10px;
+
+    --bg-color: #4618ac;
+    --bg-color-darker: #1f0a4d;
+
+    line-height: 1.5;
+    font-weight: 400;
+
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--bg-color);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .no-select {
     user-select: none;         /* Standard */
     -webkit-user-select: none; /* Safari/Chrome */
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* IE/Edge */
+}
+
+@media (min-width: $mobile-breakpoint1) {
+    .mobile {
+        display: none;
+    }
+}
+@media (max-width: $mobile-breakpoint1) {
+    .desktop {
+        display: none;
+    }
 }
 
 @font-face {
@@ -38,31 +69,7 @@
     }
 }
 
-:root {
-    --navbar-height: 100px;
-    --max-content-width: 1000px;
-    --content-padding: 20px;
 
-
-    --gap: 15px;
-
-    --icon-hover-color: #f9a53e;
-    --bg-color: #4618ac;
-    --bg-color-darker: #1f0a4d;
-
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: var(--bg-color);
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 body {
     font: 1.6rem/1.5 "metropolis",Arial,Helvetica,sans-serif;
@@ -112,6 +119,6 @@ hr {
 
 @media (max-width: $mobile-breakpoint3) {
     :root {
-        --content-padding: 10px;
+        --content-padding: var(--content-padding3);
     }
 }
