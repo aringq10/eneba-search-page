@@ -6,7 +6,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const PORT = 9000;
-const relPublicPath = "../../web/public";
+const relPagePath = "../../web/dist/";
+const here = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(express.json());
@@ -16,7 +17,6 @@ const queries = makeQueries(db);
 
 app.use("/", makeGamesRouter(queries));
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-app.use('/static', express.static(path.resolve(here, relPublicPath)));
+app.use('/', express.static(path.resolve(here, relPagePath)));
 
-app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+app.listen(process.env.PORT || PORT, () => console.log(`Listening on http://localhost:${PORT}`));

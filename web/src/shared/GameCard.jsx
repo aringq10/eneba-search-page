@@ -22,7 +22,7 @@ export default function GameCard({ g }) {
   return (
     <div className={"gamecard no-select" + (g.cashback ? " cashback" : "")}>
       <div className="cover">
-        <img src={"/static/covers/" + g.cover}></img>
+        <img src={"/covers/" + g.cover}></img>
         <div className="cover-overlay"></div>
       </div>
       <div className="detBtnWrapper">
@@ -34,7 +34,7 @@ export default function GameCard({ g }) {
             </div>
           ) : null}
           <div className="platform lineclamp1">
-            <img src={"/static/logos/" + g.platform + ".svg"}></img>
+            <img src={"/logos/" + g.platform + ".svg"}></img>
             {platform[g.platform]}
           </div>
           <div className="title-region-wrapper">

@@ -19,15 +19,3 @@ export function makeGamesRouter(queries) {
 
   return router;
 }
-
-export function makeWebRouter(queries) {
-  const router = express.Router();
-
-  router.get("/list", (req, res) => {
-    try {
-    } catch (e) {
-    }
-  });
-
-  return router;
-}
