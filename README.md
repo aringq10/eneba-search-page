@@ -5,7 +5,9 @@ gcc -fPIC -shared -o spellfix.so spellfix.c
 cd ../ 
 npm ci
 cd ../web
-npm ci && npm run build
+npm ci
+npm run build
+cd ..
 ```
 
 ## To run: (run from root)
