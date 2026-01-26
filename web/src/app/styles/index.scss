@@ -1,5 +1,27 @@
 @import "./sassvars.scss";
 
+@font-face {
+  font-family: "metropolis";
+  src: url("/fonts/Metropolis-Regular.woff2") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "metropolis";
+  src: url("/fonts/Metropolis-Medium.woff2") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "metropolis";
+  src: url("/fonts/Metropolis-Bold.woff2") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
     --max-content-width: 1000px;
     --content-padding: 20px;
@@ -7,6 +29,10 @@
 
     --bg-color: #4618ac;
     --bg-color-darker: #1f0a4d;
+
+    @media (max-width: $mobile-breakpoint3) {
+        --content-padding: var(--content-padding3);
+    }
 
     line-height: 1.5;
     font-weight: 400;
@@ -37,39 +63,6 @@
         display: none;
     }
 }
-
-@font-face {
-  font-family: "metropolis";
-  src: url("/fonts/Metropolis-Regular.woff2") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "metropolis";
-  src: url("/fonts/Metropolis-Medium.woff2") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "metropolis";
-  src: url("/fonts/Metropolis-Bold.woff2") format("opentype");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-@mixin hover-supported {
-    @media not all and (pointer: coarse) {
-        &:hover {
-            @content;
-        }
-    }
-}
-
-
 
 body {
     font: 1.6rem/1.5 "metropolis",Arial,Helvetica,sans-serif;
@@ -117,8 +110,3 @@ hr {
     margin: 0;
 }
 
-@media (max-width: $mobile-breakpoint3) {
-    :root {
-        --content-padding: var(--content-padding3);
-    }
-}

@@ -1,5 +1,16 @@
 @import "../app/styles/sassvars.scss";
 
+@mixin mobile() {
+    @media (max-width: $mobile-breakpoint1) {
+        @content;
+    }
+}
+@mixin desktop() {
+    @media (min-width: $mobile-breakpoint1) {
+        @content;
+    }
+}
+
 :root {
     --cashback-color: #63e3c2;
     --gamecard-border: 1px solid var(--cashback-color);
@@ -7,7 +18,7 @@
     --gamecard-padding: 15px;
     
     // details
-    --details-height: 176px;
+    --details-height: 173px;
     --buttons-height: 95px;
     --details-base-font: 10px;
     --platform-font: 1em;
@@ -24,6 +35,11 @@
     --theme-gray: #b3aac9;
     --theme-red: #e76b8d;
     --theme-cyan: #4cdfb9;
+
+    @include mobile() {
+        --gamecard-padding: 8px;
+        --details-height: 158px;
+    }
 }
 
 .lineclamp2 {
@@ -57,21 +73,63 @@
 .gamecard {
     font-family: "metropolis",Arial,Helvetica,sans-serif;
     line-height: 1.5;
-    aspect-ratio: var(--gamecard-ratio);
     overflow: hidden;
     background-color: var(--bg-color-darker);
     font-size: var(--details-base-font);
     position: relative;
+
+    &:hover {
+        .cover .cover-overlay {
+            opacity: 1;
+        }
+    }
+
+    @include desktop() {
+        aspect-ratio: var(--gamecard-ratio);
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--details-height);
+
+        &:hover {
+            .detBtnWrapper {
+                transform: translateY(0);
+            }
+            .favbtn {
+                opacity: 1;
+                &:hover {
+                    .ribbonIcon .ribbon-fill {
+                        fill: rgba(0, 0, 0, 0.4);
+                    }
+                }
+            }
+        }
+    }
+
+    @include mobile() {
+        height: calc(var(--details-height) + 2px);
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+    }
 }
 
 .gamecard .cover {
-    width: 100%;
-    height: calc(100% - var(--details-height));
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
+
+    @include desktop() {
+        width: 100%;
+        flex: 1 1 auto; min-height: 0;
+    }
+    @include mobile() {
+        height: 100%;
+        width: 100px;
+        flex: 0 0 auto;
+        padding: var(--gamecard-padding);
+        padding-right: 0;
+    }
+
     .cover-overlay {
         position: absolute;
         inset: 0;
@@ -86,28 +144,44 @@
         object-position: center;
         display: block;
     }
-
 }
 
 .gamecard .detBtnWrapper {
-    width: 100%;
-    height: calc(var(--details-height) + var(--buttons-height));
-    display: flex;
-    flex-direction: column;
     background-color: var(--bg-color-darker);
+    transform: translateY(calc(100% - var(--details-height)));
+    transition: transform 300ms ease-in-out;
+
+    @include desktop() {
+        width: 100%;
+        height: calc(var(--details-height) + var(--buttons-height));
+        position: absolute;
+        bottom: 0;
+    }
+    @include mobile() {
+        height: 100%;
+        flex: 1 0 0;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 .gamecard .details {
     padding: var(--gamecard-padding);
-    width: 100%;
-    flex: 0 0 var(--details-height);
+    display: flex;
+    flex-direction: column;
     position: relative;
+
+    @include desktop() {
+        width: 100%;
+    }
+    @include mobile() {
+        flex: 1 0 0;
+        padding-right: 0;
+    }
+
     .platform {
-        font-size: var(--platform-font);
         position: absolute;
-        left: 0;
-        right: 0;
-        top: calc(-1 * var(--platform-height));
         height: var(--platform-height);
         background-color: rgba(0,0,0,.55);
         backdrop-filter: blur(5px);
@@ -116,33 +190,64 @@
         align-items: center;
         gap: 5px;
         padding: 0 5px;
+
+        @include desktop() {
+            left: 0;
+            right: 0;
+            top: calc(-1 * var(--platform-height));
+        }
+        @include mobile() {
+            right: 100%;
+            left: calc(-100px + var(--gamecard-padding));
+            bottom: var(--gamecard-padding);
+        }
         img {
-            width: 1.6rem;
+            width: 1.6em;
+        }
+        span {
+            font-size: var(--platform-font);
+            font-weight: bold;
+            line-height: 1;
         }
     }
     .title-region-wrapper {
         min-height: var(--title-region-height);
     }
     .title {
-        margin-bottom: 8px;
         font-size: var(--title-font);
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 8px;
     }
     .region {
-        margin-bottom: 10px;
         font-size: var(--region-font);
+        font-weight: bold;
+        line-height: 1;
+        margin-bottom: 10px;
     }
     .price {
         color: var(--theme-gray);
         font-size: var(--price-font);
+        font-weight: bold;
+        line-height: 1;
     }
     .dprice {
-        margin-top: 5px;
         font-size: var(--dprice-font);
+        font-weight: bold;
+        line-height: 1;
+        margin-top: 5px;
+    }
+    .cashback {
+        font-weight: bold;
+        line-height: 1.5;
     }
     .favcount {
         font-size: var(--favcount-font);
-        color: var(--theme-gray);
+        font-weight: medium;
+        line-height: 1.5;
         margin-top: 5px;
+
+        color: var(--theme-gray);
         display: flex;
         align-items: center;
         gap: 2.5px;
@@ -151,30 +256,25 @@
             color: var(--theme-gray);
         }
     }
-
-    .region, .price, .dprice {
-        line-height: 1;
-    }
-    .title, .region, .platform, .price, .dprice, .cashback {
-        font-weight: 800;
-    }
-    .favcount {
-        font-weight: 600;
-    }
 }
 
 .gamecard .buttons {
-    flex: 0 0 var(--buttons-height);
-    padding: var(--gamecard-padding);
-    padding-top: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    > * {
-        cursor: pointer;
+    @include desktop() {
+        padding: var(--gamecard-padding);
+        padding-top: 0;
+        gap: 10px;
     }
+    @include mobile() {
+        flex: 0 0 calc(50px + var(--gamecard-padding));
+        padding: var(--gamecard-padding);
+        padding-left: 0;
+        justify-content: end;
+    }
+
     .cartbtn {
-        height: 35px;
+        cursor: pointer;
         color: black;
         font-weight: 800;
         font-size: 1.5em;
@@ -182,21 +282,36 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: background-color 150ms ease-in-out,border-color 150ms ease-in-out;
-        &:hover {
-            background-color: #f0a613;
+        transition: all 150ms ease-in-out;
+        @include desktop() {
+            height: 35px;
+            &:hover {
+                background-color: #f0a613;
+            }
         }
-        .cartIcon {
-            height: 1.6em;
-            color: white;
+        @include mobile() {
+            background: none;
+            width: 100%;
+            height: 38px;
+            padding: 10px;
+            border: 1px solid white;
+            font-size: 1em;
+            &:hover {
+                background-color: rgba(0,0,0,.3);
+                border-color: #fad318;
+            }
+            .cartIcon {
+                height: 1.6em;
+                color: white;
+            }
+            .plusIcon {
+                width: 1.2em;
+                color: white;
+            }
         }
-        .plusIcon {
-            width: 1.2em;
-            color: white;
-        }
-
     }
     .optbtn {
+        cursor: pointer;
         height: 35px;
         color: white;
         font-weight: 800;
@@ -205,24 +320,33 @@
         justify-content: center;
         align-items: center;
         border: 1px solid white;
-        transition: background-color 150ms ease-in-out,border-color 150ms ease-in-out;
+        transition: all 150ms ease-in-out;
+        @include mobile() {
+            display: none;
+        }
         &:hover {
             background-color: rgba(0,0,0,.3);
             border-color: #fad318;
         }
     }
-
 }
 
 .gamecard .favbtn {
     position: absolute;
-    top: 0;
-    right: 10px;
     cursor: pointer;
-    opacity: 0;
     transition: all 150ms ease-in-out;
     * {
         transition: all 150ms ease-in-out;
+    }
+    @include desktop() {
+        opacity: 0;
+        top: 0;
+        right: 10px;
+    }
+    @include mobile() {
+        opacity: 1;
+        top: 0;
+        right: var(--gamecard-padding);
     }
     &:hover {
         .ribbonIcon .ribbon-fill {
@@ -234,7 +358,12 @@
     }
 
     .ribbonIcon {
-        width: 4.8em;
+        @include desktop() {
+            width: 4.8em;
+        }
+        @include mobile() {
+            width: 3.36em;
+        }
         .heart-stroke {
             fill: white;
         }
@@ -252,122 +381,25 @@
 
 .details .cashbackRibbon {
     position: absolute;
-    background-color: var(--cashback-color);
     display: flex;
     align-items: center;
     gap: 5px;
     padding: 5px;
+    background-color: var(--cashback-color);
+    font-size: 1.2em;
     font-weight: 800;
     color: black;
-    font-size: 1.2em;
-    .cashbackIcon {
-        height: 1.2em;
-        color: black;
-    }
-}
 
-// Desktop only
-@media (min-width: $mobile-breakpoint1) {
-    .detBtnWrapper {
-        position: absolute;
-        transition: transform 300ms ease-in-out;
-    }
-    .details .cashbackRibbon {
+    @include desktop() {
         left: 0;
         bottom: calc(100% + var(--platform-height) + 10px);
     }
-    .gamecard:hover {
-        .detBtnWrapper {
-            transform: translateY(calc(-1 * var(--buttons-height)));
-        }
-        .cover-overlay {
-            opacity: 1;
-        }
-        .favbtn {
-            opacity: 1;
-            &:hover {
-                .ribbonIcon .ribbon-fill {
-                    fill: rgba(0, 0, 0, 0.4);
-                }
-            }
-        }
-    }
-}
-
-// Mobile only
-@media (max-width: $mobile-breakpoint1) {
-    :root {
-        --gamecard-padding: 8px;
-        --title-region-height: 81px;
-    }
-    .gamecard {
-        height: var(--details-height);
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-    }
-    .gamecard .cover {
-        height: 100%;
-        flex: 0 0 100px;
-        padding: var(--gamecard-padding);
-        padding-right: 0;
-    }
-    .gamecard .detBtnWrapper {
-        height: 100%;
-        flex: 1 0 0;
-        display: flex;
-        flex-direction: row;
-    }
-    .gamecard .details {
-        flex: 1 0 0;
-        padding-right: 0;
-        .platform {
-            right: 100%;
-            left: calc(-100px + var(--gamecard-padding));
-            top: auto;
-            bottom: var(--gamecard-padding);
-        }
-    }
-    .details .cashbackRibbon {
+    @include mobile() {
         right: -58px;
         top: 55px;
     }
-    .gamecard .buttons {
-        flex: 0 0 calc(50px + var(--gamecard-padding));
-        padding: var(--gamecard-padding);
-        padding-left: 0;
-        display: flex;
-        justify-content: end;
-        .optbtn {
-            display: none;
-        }
-        .cartbtn {
-            background: none;
-            width: 100%;
-            height: 38px;
-            padding: 10px;
-            border: 1px solid white;
-            align-self: flex-end;
-            font-size: 1em;
-            
-            transition: all 150ms ease-in-out;
-            &:hover {
-                background-color: rgba(0,0,0,.3);
-                border-color: #fad318;
-            }
-
-        }
-    }
-    .gamecard .favbtn {
-        opacity: 1;
-        right: var(--gamecard-padding);
-        .ribbonIcon {
-            width: 3.36em;
-        }
-        &:hover {
-            .ribbonIcon .ribbon-fill {
-                fill: rgba(0, 0, 0, 0.2);
-            }
-        }
+    .cashbackIcon {
+        height: 1.2em;
+        color: black;
     }
 }

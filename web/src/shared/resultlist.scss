@@ -3,6 +3,13 @@
 :root {
     --gamecard-col-count: 4;
     --gap: var(--content-padding);
+
+    @media (max-width: $mobile-breakpoint3) {
+        --gamecard-col-count: 3;
+    }
+    @media (max-width: $mobile-breakpoint1) {
+        --gamecard-col-count: 1;
+    }
 }
 
 #resultcount {
@@ -12,18 +19,7 @@
 #resultlist {
     display: grid;
     padding: 0 var(--content-padding);
+    padding-bottom: 100px;
     grid-template-columns: repeat(var(--gamecard-col-count), 1fr);
     gap: var(--gap);
-}
-
-@media (max-width: $mobile-breakpoint3) {
-    :root {
-        --gamecard-col-count: 3;
-    }
-}
-
-@media (max-width: $mobile-breakpoint1) {
-    :root {
-        --gamecard-col-count: 1;
-    }
 }

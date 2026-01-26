@@ -1,10 +1,19 @@
 @import "../app/styles/sassvars.scss";
 
+@mixin desktop3() {
+    @media (max-width: $mobile-breakpoint3) {
+        @content;
+    }
+}
+
 :root {
     --icon-hover-color: #f9a53e;
     --navbar-height: 100px;
     --navbar-height3: 55px;
     --searchfield-font: 1.9rem;
+    @include desktop3() {
+        --navbar-height: var(--navbar-height3);
+    }
 }
 
 #navbar {
@@ -15,6 +24,10 @@
     padding: 20px var(--content-padding);
     height: var(--navbar-height);
 
+    @include desktop3(){
+        padding: var(--content-padding);
+    }
+
     > * {
         height: 100%;
     }
@@ -23,8 +36,6 @@
         cursor: pointer;
         height: 24px;
         width: 24px;
-    }
-    .navbar-icon {
         @include hover-supported() {
             color: var(--icon-hover-color);
         }
@@ -49,6 +60,39 @@
     border: 1px solid white;
     flex: 1 0 0;
     display: flex;
+    @include desktop3() {
+        &:not(.open) {
+            margin-left: auto;
+            flex: 0;
+            border: none;
+            > *:not(#search-icon) {
+                display: none;
+            }
+            > #search-icon {
+                cursor: pointer;
+                padding: 0;
+
+                @include hover-supported() {
+                    svg {
+                        color: var(--icon-hover-color);
+                    }
+                }
+            }
+        }
+        &.open {
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            border: none;
+            height: var(--navbar-height);
+            background-color: var(--bg-color);
+            #search-icon {
+                padding: 0 var(--content-padding);
+            }
+        }
+    }
     > * {
         height: 100%;
         cursor: text;
@@ -81,43 +125,5 @@
             height: 16px;
             color: white;
         }
-    }
-}
-
-
-@media (max-width: $mobile-breakpoint3) {
-    :root {
-        --navbar-height: var(--navbar-height3);
-    }
-    #navbar {
-        padding: var(--content-padding);
-    }
-    #searchbar:not(.open) {
-        margin-left: auto;
-        flex: 0;
-        border: none;
-        > *:not(#search-icon) {
-            display: none;
-        }
-        #search-icon {
-            cursor: pointer;
-            padding: 0;
-
-            @include hover-supported() {
-                > svg path {
-                    stroke: var(--icon-hover-color);
-                }
-            }
-        }
-    }
-    #searchbar.open {
-        z-index: 1000;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        border: none;
-        height: var(--navbar-height);
-        background-color: var(--bg-color);
     }
 }

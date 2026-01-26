@@ -48,7 +48,7 @@ export default function NavBar({ query, onSubmit, setQuery, open, setOpen }) {
           htmlFor="searchfield"
           onClick={() => mobile ? setOpen((v) => !v) : ""}
         >
-          <SearchIcon className="navbar-icon" />
+          <SearchIcon />
         </label>
         <input
           id="searchfield"
@@ -58,13 +58,14 @@ export default function NavBar({ query, onSubmit, setQuery, open, setOpen }) {
           placeholder="Search Games..."
           aria-label="Search"
         />
-        <div
+        <label
           id="clear-icon"
+          htmlFor="searchfield"
           style={{display: query && ((mobile && open) || !mobile) ? "flex" : "none"}}
           onClick={() => setQuery("")}
         >
           <ClearIcon className="navbar-icon" />
-        </div>
+        </label>
       </form>
       <FavIcon id="fav-icon" className="navbar-icon" />
       <CartIcon id="cart-icon" className="navbar-icon" />

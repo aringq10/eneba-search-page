@@ -33,9 +33,9 @@ export default function GameCard({ g }) {
               <div className="desktop">CASHBACK</div>
             </div>
           ) : null}
-          <div className="platform lineclamp1">
+          <div className="platform">
             <img src={"/logos/" + g.platform + ".svg"}></img>
-            {platform[g.platform]}
+            <span className="lineclamp1">{platform[g.platform]}</span>
           </div>
           <div className="title-region-wrapper">
             <div className="title lineclamp2">
